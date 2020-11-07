@@ -3,15 +3,19 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const router = express.Router();
+const dotenv = require('dotenv'); // load env file reader module
 
 
-const port = 3000;
+dotenv.config(); // loading env file
+const GlobalVariables = {
+    "port": process.env.PORT,
+    'directPath': __dirname + '/' + process.env.TEMPLATES_FOLDER + '/',
+}
 
 
 
 router.get("/resume-analysis", (req, resp) => {
-    const directPath = __dirname + "/views/"
-    resp.sendFile(path.join(directPath + 'index.html'));
+    resp.sendFile(path.join(GlobalVariables['directPath'] + 'index.html'));
     // _dirname: It will resolve to your project folder
 });
 
@@ -23,5 +27,5 @@ router.get("/ping", (req, resp) => {
 
 // add the router
 app.use("/", router);
-app.listen(port)
-console.log(`Server running at http://127.0.0.1:${port}/`);
+app.listen(GlobalVariables['port']);
+console.log(`Server running at http://127.0.0.1:${GlobalVariables['port']}/`);
