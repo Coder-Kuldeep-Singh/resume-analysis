@@ -4,17 +4,22 @@ const app = express();
 const path = require('path');
 const router = express.Router();
 const dotenv = require('dotenv'); // load env file reader module
+const fs = require('fs');
 
 
 dotenv.config(); // loading env file
 const GlobalVariables = {
     "port": process.env.PORT,
     'directPath': __dirname + '/' + process.env.TEMPLATES_FOLDER + '/',
+    "resumePath": __dirname + '/' + process.env.UPLOADS + '/',
 }
 
 
 
 router.get("/resume-analysis", (req, resp) => {
+    fs.readFile(GlobalVariables['resumePath'] + "resume.pdf", (err, data) => {
+        console.log(data.toString());
+    });
     resp.sendFile(path.join(GlobalVariables['directPath'] + 'index.html'));
     // _dirname: It will resolve to your project folder
 });
