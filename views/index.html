@@ -1,17 +1,70 @@
 <html>
 
 <head>
-    <title>Express HTML</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <title>Resume Analysis Tool</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 
 <body>
     <div class="jumbotron text-center" style="padding:20px;">
         <h3 class="text-uppercase">Resume Analysis Tool</h3>
     </div>
+    <div class="container text-center" style="width: 50%;">
+        <div class="custom-file mb-3">
+            <input type="file" class="custom-file-input" id="customFile" name="filename">
+            <label class="custom-file-label" for="customFile">Browse Resume</label>
+            <div class="btn btn-primary my-2">Upload</div>
+        </div>
+        <br />
+        <br />
+        <br />
+
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input class="form-control" id="name" type="text">
+        </div>
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input class="form-control" id="email" type="email">
+        </div>
+
+        <div class="form-group">
+            <label for="address">Address</label>
+            <input class="form-control" id="address" type="text">
+        </div>
+
+
+        <div class="form-group">
+            <label for="contact-number">Contact Number</label>
+            <input class="form-control" id="contact-number" type="text">
+        </div>
+
+        <div class="form-group">
+            <label for="linkdin-profile">Linkdin Profile URL</label>
+            <input class="form-control" id="linkdin-profile" type="text">
+        </div>
+
+        <div class="form-group">
+            <label for="github-profile">Github Profile URL</label>
+            <input class="form-control" id="github-profile" type="text">
+        </div>
+
+        <div class="form-group">
+            <label for="website-url">Website URL</label>
+            <input class="form-control" id="website-url" type="text">
+        </div>
+
+    </div>
+    <script>
+        // Add the following code if you want the name of the file appear on select
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
 </body>
 
 </html>
