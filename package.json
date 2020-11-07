@@ -1,0 +1,30 @@
+{
+  "name": "resume-analysis",
+  "version": "1.0.0",
+  "description": "resume analysis tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mavensingh/resume-analysis.git"
+  },
+  "keywords": [
+    "resume",
+    "resume",
+    "analysis",
+    "resume",
+    "analysis",
+    "tool"
+  ],
+  "author": "kuldeep singh,sanjeet",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mavensingh/resume-analysis/issues"
+  },
+  "homepage": "https://github.com/mavensingh/resume-analysis#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
