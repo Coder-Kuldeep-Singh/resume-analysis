@@ -1,5 +1,7 @@
 const http = require('http');
+
 const express = require('express');
+
 const app = express();
 const path = require('path');
 const router = express.Router();
@@ -23,6 +25,24 @@ router.get("/resume-analysis", (req, resp) => {
     resp.sendFile(path.join(GlobalVariables['directPath'] + 'index.html'));
     // _dirname: It will resolve to your project folder
 });
+
+// router.post('/resume-analysis', async (req, resp) => {
+//     try {
+//         if (!req.files) {
+//             resp.send({
+//                 status: false,
+//                 message: 'No file uploaded',
+//             });
+//         } else {
+//             let avatar = req.files.avatar;
+
+//             // Use the mv() method to place the file in uploads folder
+//             avatar.mv
+//         }
+//     } catch {
+
+//     }
+// });
 
 
 router.get("/ping", (req, resp) => {
