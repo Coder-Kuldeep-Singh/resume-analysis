@@ -1,5 +1,5 @@
 var pdf = require('pdf-text-extract');
-let filePath = "../../../Downloads/Kuldeep-Singh.pdf" //Kuldeep-Singh.pdf
+let filePath = "../../../Downloads/COPY+OF+COPY+OF+Resume-Kuldeep-Singh.pdf" //Kuldeep-Singh.pdf
 // COPY+OF+COPY+OF+Resume-Kuldeep-Singh.pdf
 
 
@@ -27,7 +27,7 @@ pdf(filePath, {
     }
 
     let Resume = {};
-    // console.log(text[0]);
+
     let rm = text[0].replace(" ", "").split("\n");
     Resume['Name'] = myTrim(rm[0]);
     // let Numbers = [];
@@ -37,6 +37,7 @@ pdf(filePath, {
         "g"
     );
 
+    let skills = ""
     for (let idx = 0; idx < rm.length; idx++) {
 
         if (rm[idx].includes('linkedin.com')) {
@@ -55,6 +56,12 @@ pdf(filePath, {
             Resume['number'] = myTrim(number);
         };
 
+        // (rm[idx].includes('Skills') ||
+        if (rm[idx].includes('•')) {
+            skills += myTrim(rm[idx]);
+        }
+
+
 
         // Method 1 to extract phone number but failed
         // if (regex.exec(rm[idx])) {
@@ -69,6 +76,6 @@ pdf(filePath, {
 
 
     }
-    // console.log(Numbers);
+    Resume['skills'] = skills;
     console.log(Resume);
 });
