@@ -38,7 +38,7 @@ pdf(filePath, {
 
     var skills = [];
     var Linkedin = '';
-    var github = '';
+    var github = [];
     var PhoneNumber = [];
     var Emails = [];
     var nextNode = 1;
@@ -103,8 +103,8 @@ pdf(filePath, {
 
         if (rm[idx].includes('https://github.com')) {
             // Resume['github'] = myTrim(rm[idx]);
-            github = myTrim(rm[idx]);
-            // github.push(myTrim(rm[idx]));
+            // github = myTrim(rm[idx]);
+            github.push(myTrim(rm[idx]));
         }
 
 
