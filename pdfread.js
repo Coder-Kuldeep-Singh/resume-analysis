@@ -1,5 +1,5 @@
 var pdf = require('pdf-text-extract');
-var filePath = "../../../Downloads/Kuldeep-Singh.pdf"; //Kuldeep-Singh.pdf
+var filePath = "../../../Downloads/Kuldeep-Singh (1).pdf"; //Kuldeep-Singh.pdf
 // COPY+OF+COPY+OF+Resume-Kuldeep-Singh.pdf
 
 
@@ -20,10 +20,15 @@ function getNumbers(string) {
 
 pdf(filePath, {
     splitPages: false
-}, (err, text) => {
+}, function (err, text) {
     if (err) {
         console.dir(err);
         return;
+    }
+
+    var resumeString = '';
+    for (var idx = 0; idx < text.length; idx++) {
+        resumeString += text[idx];
     }
 
     var regex = new RegExp(
@@ -39,7 +44,8 @@ pdf(filePath, {
     var nextNode = 1;
     var checkNextNode = false;
 
-    var rm = text[0].replace(" ", "").split("\n");
+    // var rm = text[0].replace(" ", "").split("\n");
+    var rm = resumeString.split("\n");
     for (var idx = 0; idx < rm.length; idx++) {
 
         if (rm[idx].includes('linkedin.com')) {
@@ -58,24 +64,30 @@ pdf(filePath, {
         // Method 2 to extract phone number and successful
         var number = getNumbers(rm[idx]);
         if (number.length >= 10) {
+            if (!number.includes('.')) {
+                PhoneNumber.push(myTrim(number));
+            }
             // Resume['number'] = myTrim(number);
-            PhoneNumber.push(myTrim(number));
+
 
         }
-
 
         // new method to extract the skills from the pdf with the next node method
         // I made a logic to check the the next node are blank or have values if line is blank so program will gonna end that
         if (rm[idx].toLowerCase().includes('skills') || rm[idx].toLowerCase().includes('technical skills') || rm[idx].toLowerCase().includes('it skills')) {
+
             while (checkNextNode == false) {
                 // checking the 1 next node and 2 next node if they satisfied the condition to append skills then leave it
-                if (rm[idx + 1] == '' && rm[idx + 2] != '') {
-                    skills.push(rm[idx + nextNode]);
+                if (rm[idx + 1] == '' && rm[idx + 2] == '') {
+                    if (rm[idx + nextNode] != '') {
+                        skills.push(rm[idx + nextNode]);
+                    }
                     nextNode++;
                 }
 
-                if (rm[idx + nextNode] == '' || rm[idx + nextNode + 1] == '') {
+                if (rm[idx + nextNode] == '' && rm[idx + nextNode + 1] == '') {
                     checkNextNode = true;
+                    break;
                 }
 
                 skills.push(rm[idx + nextNode]);
