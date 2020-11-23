@@ -18,6 +18,23 @@ function getNumbers(string) {
     return int;
 }
 
+var resumeString = (text) => {
+    var resume = '';
+    for (var idx = 0; idx < text.length; idx++) {
+        resume += text[idx];
+    }
+    return resume;
+};
+
+var MatchedCases = (text,match) => {
+    if (text.includes(match)) {
+        return myTrim(text);
+    } else {
+        return "";
+    }
+};
+
+
 pdf(filePath, {
     splitPages: false
 }, function (err, text) {
@@ -25,11 +42,7 @@ pdf(filePath, {
         console.dir(err);
         return;
     }
-
-    var resumeString = '';
-    for (var idx = 0; idx < text.length; idx++) {
-        resumeString += text[idx];
-    }
+    var resume = resumeString(text);
 
     var regex = new RegExp(
         "\\+?\\(?\\d*\\)? ?\\(?\\d+\\)?\\d*([\\s./-]?\\d{2,})+",
@@ -45,20 +58,18 @@ pdf(filePath, {
     var checkNextNode = false;
 
     // var rm = text[0].replace(" ", "").split("\n");
-    var rm = resumeString.split("\n");
+    var rm = resume.split("\n");
     for (var idx = 0; idx < rm.length; idx++) {
 
-        if (rm[idx].includes('linkedin.com')) {
-            // Resume['linkedin'] = myTrim(rm[idx]);
-            // Linkedin.push(myTrim(rm[idx]));
-            Linkedin = myTrim(rm[idx]);
+        var values = MatchedCases(rm[idx],'linkedin.com');
+        if (values != ''){
+            Linkedin = values;
         }
 
-        if (rm[idx].includes('@gmail.com')) {
-            var emailOnly = rm[idx].split(".com");
-            // console.log();
-            // Resume['email'] = myTrim(emailOnly[0]);
-            Emails.push(myTrim(emailOnly[0]));
+        var emails = MatchedCases(rm[idx],'@gmail.com');
+        if(emails != ''){
+            var emailOnly = emails.split('.com');
+            Emails.push(emailOnly[0]+'.com');
         }
 
         // Method 2 to extract phone number and successful
@@ -67,9 +78,6 @@ pdf(filePath, {
             if (!number.includes('.')) {
                 PhoneNumber.push(myTrim(number));
             }
-            // Resume['number'] = myTrim(number);
-
-
         }
 
         // new method to extract the skills from the pdf with the next node method
@@ -101,14 +109,10 @@ pdf(filePath, {
             // }
         }
 
-        if (rm[idx].includes('https://github.com')) {
-            // Resume['github'] = myTrim(rm[idx]);
-            // github = myTrim(rm[idx]);
-            github.push(myTrim(rm[idx]));
+        var git = MatchedCases(rm[idx],'https://github.com');
+        if(git != ''){
+            github.push(git);
         }
-
-
-
     }
 
     var Resume = {
